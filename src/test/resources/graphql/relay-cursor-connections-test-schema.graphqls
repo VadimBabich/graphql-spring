@@ -1,0 +1,25 @@
+directive @connection(for: String!) on FIELD_DEFINITION
+directive @fetch(from : String!) on FIELD_DEFINITION
+
+scalar BigDecimal
+scalar LocalDate
+scalar Date
+
+schema {
+    query: Query
+}
+
+type Query{
+
+    rootTestObject: RootObject @fetch(from: "rootObject")
+
+    getRandomTestObjects(first: Int, after: String, last: Int, before: String, filter: String): RootObjectConnection @connection(for: "RootObject")
+}
+
+type RootObject{
+
+    stringField: String
+    decimalField: BigDecimal
+    localDateField: LocalDate
+    dateField: Date
+}

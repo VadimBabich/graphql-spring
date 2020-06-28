@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:ql="http://babich.org/graphql"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd
+        http://babich.org/graphql http://babich.org/graphql/graphql-module.xsd">
+
+    <util:map id="documentProjectionQueries" key-type="java.lang.String" value-type="java.lang.String">
+
+        <entry key="getAllFields"
+               value="query{stringField, decimalField, localDateField, dateField} "/>
+
+        <entry key="getAllFieldsWithDates"
+               value="query($countDates: Int){stringField, decimalField, localDateField, dateField
+                        , getRandomLocalDates(count: $countDates)}"/>
+
+        <entry key="getAllFieldsWithDates"
+               value="query($countDates: Int){stringField, decimalField, localDateField, dateField
+                        , getRandomLocalDates(count: $countDates)}"/>
+
+        <entry key="getPaginatedCollectionByFilter"
+               value="query($pageSize: Int, $nextPage: String, $containsCharacter: String)
+                    { rootTestObject
+                        {stringField, decimalField, localDateField, dateField}
+                        , getRandomTestObjects(first: $pageSize, after: $nextPage, filter: $containsCharacter)
+                            { edges
+                                { node {stringField, decimalField, localDateField}, cursor }
+                                , pageInfo{hasPreviousPage, hasNextPage, startCursor, endCursor} } } "/>
+
+    </util:map>
+
+
+    <ql:type type-name="Query">
+
+        <!--        Fetcher definition for getRandomLocalDates field-->
+        <ql:field field-name="getRandomLocalDates"
+                  fetcher-class="org.babich.graphql.test.utils.fetchers.RandomLocalDatesFetcher"/>
+
+        <!--        Fetcher definition for getRandomTestObjects field-->
+        <ql:field field-name="getRandomTestObjects"
+                  fetcher-class="org.babich.graphql.test.utils.fetchers.RelayCursorConnectionsFetcher"/>
+
+    </ql:type>
+
+
+</beans>

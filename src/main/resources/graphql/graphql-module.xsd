@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://babich.org/graphql"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tool="http://www.springframework.org/schema/tool"
+            targetNamespace="http://babich.org/graphql"
+            elementFormDefault="qualified"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool.xsd">
+
+
+    <xsd:element name="type">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <tool:annotation>
+                    <tool:exports type="java.util.List"/>
+                </tool:annotation>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="setOfFields">
+                    <xsd:attribute name="id" type="xsd:string"/>
+                    <xsd:attribute name="type-name" type="xsd:string" use="required"/>
+                    <xsd:attribute name="rewritable" type="xsd:boolean"/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="setOfFields">
+        <xsd:group ref="fields"/>
+    </xsd:complexType>
+
+    <xsd:element name="field">
+        <xsd:complexType>
+            <xsd:attribute name="id" type="xsd:string"/>
+            <xsd:attribute name="field-name" type="xsd:string" use="required"/>
+            <xsd:attribute name="fetcher-class" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation source="java:graphql.schema.DataFetcher"/>
+                </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="fetcher-ref" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation source="java:graphql.schema.DataFetcher"/>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:group name="fields">
+        <xsd:sequence>
+            <xsd:element ref="field" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:group>
+
+</xsd:schema>

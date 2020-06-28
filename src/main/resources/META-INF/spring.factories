@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.babich.graphql.configuration.ServletConfiguration,\
+  org.babich.graphql.configuration.InstrumentationConfiguration,\
+  org.babich.graphql.configuration.CacheConfiguration,\
+  org.babich.graphql.configuration.ScalarConfiguration

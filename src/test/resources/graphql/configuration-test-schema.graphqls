@@ -1,0 +1,18 @@
+
+scalar BigDecimal
+scalar LocalDate
+scalar Date
+
+schema {
+    query: Query
+}
+
+type Query{
+
+    stringField: String
+    decimalField: BigDecimal
+    localDateField: LocalDate
+    dateField: Date
+
+    getRandomLocalDates(count: Int): [LocalDate]
+}
