@@ -4,6 +4,7 @@
 
 package org.babich.graphql.configuration;
 
+import graphql.scalars.ExtendedScalars;
 import graphql.schema.GraphQLScalarType;
 import org.babich.graphql.scalars.DateCoercing;
 import org.babich.graphql.scalars.LocalDateCoercing;
@@ -38,8 +39,8 @@ public class ScalarConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean(name = "localDataTimeScalarType")
-    public GraphQLScalarType localDataTimeScalarType() {
+    @ConditionalOnMissingBean(name = "localDateTimeScalarType")
+    public GraphQLScalarType localDateTimeScalarType() {
         return GraphQLScalarType.newScalar()
                 .name("OffsetDateTime")
                 .description("java.time.OffsetDateTime Scalar")
@@ -48,8 +49,8 @@ public class ScalarConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean(name = "localDataScalarType")
-    public GraphQLScalarType localDataScalarType() {
+    @ConditionalOnMissingBean(name = "localDateScalarType")
+    public GraphQLScalarType localDateScalarType() {
         return GraphQLScalarType.newScalar()
                 .name("LocalDate")
                 .description("java.time.LocalDate Scalar")
@@ -58,12 +59,44 @@ public class ScalarConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean(name = "dataScalarType")
-    public GraphQLScalarType dataScalarType() {
+    @ConditionalOnMissingBean(name = "dateScalarType")
+    public GraphQLScalarType dateScalarType() {
         return GraphQLScalarType.newScalar()
                 .name("Date")
                 .description("java.util.Date Scalar")
                 .coercing(new DateCoercing(dateTimePattern))
                 .build();
     }
+
+    @Bean
+    @ConditionalOnMissingBean(name = "bigDecimalScalarType")
+    public GraphQLScalarType bigDecimalScalarType() {
+        return ExtendedScalars.GraphQLBigDecimal;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(name = "bigIntegerScalarType")
+    public GraphQLScalarType bigIntegerScalarType() {
+        return ExtendedScalars.GraphQLBigInteger;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(name = "byteScalarType")
+    public GraphQLScalarType byteScalarType() {
+        return ExtendedScalars.GraphQLByte;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(name = "longScalarType")
+    public GraphQLScalarType longScalarType() {
+        return ExtendedScalars.GraphQLLong;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(name = "charScalarType")
+    public GraphQLScalarType charScalarType() {
+        return ExtendedScalars.GraphQLChar;
+    }
+
+
 }

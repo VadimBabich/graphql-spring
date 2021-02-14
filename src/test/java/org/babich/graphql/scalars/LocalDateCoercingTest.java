@@ -23,11 +23,11 @@ public class LocalDateCoercingTest {
     //yyyy-MM-dd
 
     @Autowired
-    private GraphQLScalarType localDataScalarType;
+    private GraphQLScalarType localDateScalarType;
 
     @Test
     public void parseValue() {
-        Coercing coercing = localDataScalarType.getCoercing();
+        Coercing coercing = localDateScalarType.getCoercing();
         LocalDate date = (LocalDate) coercing.parseValue("1985-04-12");
 
         Assert.assertEquals(LocalDate.of(1985, 04, 12), date);

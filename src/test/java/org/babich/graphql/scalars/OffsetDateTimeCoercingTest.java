@@ -24,11 +24,11 @@ public class OffsetDateTimeCoercingTest {
     //yyyy-MM-dd'T'HH:mm:ss.SSSZ
 
     @Autowired
-    private GraphQLScalarType localDataTimeScalarType;
+    private GraphQLScalarType localDateTimeScalarType;
 
     @Test
     public void parseValue() {
-        Coercing coercing = localDataTimeScalarType.getCoercing();
+        Coercing coercing = localDateTimeScalarType.getCoercing();
         ZoneId zoneOffset = ZoneId.of("+0400");
 
         OffsetDateTime date = (OffsetDateTime) coercing.parseValue("1985-04-12T23:20:50.369+0400");

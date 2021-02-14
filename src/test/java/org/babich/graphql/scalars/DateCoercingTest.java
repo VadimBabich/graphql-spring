@@ -24,11 +24,11 @@ public class DateCoercingTest {
     //yyyy-MM-dd'T'HH:mm:ss.SSSZ
 
     @Autowired
-    private GraphQLScalarType dataScalarType;
+    private GraphQLScalarType dateScalarType;
 
     @Test
     public void parseValue() {
-        Coercing coercing = dataScalarType.getCoercing();
+        Coercing coercing = dateScalarType.getCoercing();
         ZoneId zoneOffset = ZoneId.of("+0400");
 
         Date date = (Date) coercing.parseValue("1985-04-12T23:20:50.369+0400");
